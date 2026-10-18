@@ -144,7 +144,7 @@ def run(c, out):
             semantic = GP(x, y[:, response], center, penalty)
             semantic_nlpd, semantic_loo = semantic.loo()
             numerical_nlpd, numerical_loo = numerical.loo()
-            gate = semantic_nlpd <= 1.05 * numerical_nlpd
+            gate = semantic_nlpd <= numerical_nlpd + .05 * max(abs(numerical_nlpd), 1e-8)
             if c['variant'] == 'blank':
                 gate = False
             elif c['variant'] == 'no-gate':
